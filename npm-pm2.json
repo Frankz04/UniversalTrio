@@ -1,0 +1,9 @@
+{
+    "apps": [
+        {
+            "name": "NPM - transfer.einfachtrion.de",
+            "script": "npm",
+            "args" : "run start:prod"
+        }
+    ]
+}
