@@ -5,5 +5,4 @@ fqdn.env
 qrcode-svg/
 turnserver.conf
 rtc_config.json
-npm-pm2.json
 ssl/
