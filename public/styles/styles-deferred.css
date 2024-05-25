@@ -184,7 +184,7 @@ x-peer-text-input {
     flex-direction: row;
     width: calc(100% - 40px);
     height: 45px;
-    border-radius: 18px;
+    border-radius: 17px;
     background-color: #e7effd;
     overflow: hidden;
 }

@@ -264,17 +264,38 @@ html[dir="rtl"] #expand.flipped  > .icon {
 
 /* Typography */
 
-@font-face {
-    font-family: "Open Sans";
-    src: url('../fonts/OpenSans/static/OpenSans-Medium.ttf') format('truetype');
-    font-display: swap;
-}
 
+@font-face {
+    font-family: "Thicccboi";
+    src: url('../fonts/THICCCBOI/THICCCBOI-Regular.ttf') format('truetype');
+    font-display: swap;
+    font-weight: normal;
+}
 @font-face {
     font-family: "Thicccboi";
     src: url('../fonts/THICCCBOI/THICCCBOI-Bold.ttf') format('truetype');
     font-display: swap;
+    font-weight: 500;
 }
+@font-face {
+    font-family: "Thicccboi";
+    src: url('../fonts/THICCCBOI/THICCCBOI-ExtraBold.ttf') format('truetype');
+    font-display: swap;
+    font-weight: 700;
+}
+@font-face {
+    font-family: "Thicccboi";
+    src: url('../fonts/THICCCBOI/THICCCBOI-SemiBold.ttf') format('truetype');
+    font-display: swap;
+    font-weight: 400;
+}
+@font-face {
+    font-family: "Thicccboi";
+    src: url('../fonts/THICCCBOI/THICCCBOI-Medium.ttf') format('truetype');
+    font-display: swap;
+    font-weight: 300;
+}
+
 @font-face {
     font-family: "Jost";
     src: url('../fonts/Jost/Jost-Regular.ttf') format('truetype');
@@ -502,6 +523,7 @@ x-peer-name {
 x-peer-name h4 {
     font-family: Jost;
     font-size: 15px;
+    font-weight: 500;
     margin: 0;
 }
 
@@ -647,7 +669,7 @@ x-landing-page .visit-website::before {
 }
 x-landing-page .visit-website h3 {
     margin-left: 26px;
-    transition: .3s ease-in-out;
+    transition: margin-left .3s ease-in-out, color .06s;
 }
 x-landing-page .visit-website:hover h3{
     margin-left: 0px;
@@ -655,7 +677,7 @@ x-landing-page .visit-website:hover h3{
 }
 x-landing-page .visit-website:hover {
     animation-name: wiggle, wiggle2, color1, color2;
-    animation-duration: .3s, .3s, .06s, .06s;
+    animation-duration: .3s, .3s, .11s, .08s;
     animation-delay: 0s, .75s, .75s, .75s;
     animation-timing-function: ease-in-out, ease-in-out, linear, linear;
     animation-fill-mode: forwards, forwards, forwards, forwards;
@@ -665,7 +687,7 @@ x-landing-page .visit-website:hover {
 x-landing-page .visit-website:hover:before {
     animation-name: jump-x, rotate, jump-y, jump-y2, filter1;
     animation-timing-function: cubic-bezier(.3,-0.04,.78,1), linear, cubic-bezier(.38,-0.44,0,1), cubic-bezier(1,.02,.76,1.32), linear;
-    animation-duration: .8s, .8s, .4s, .4s, .06s;
+    animation-duration: .8s, .8s, .4s, .4s, .11s;
     animation-delay: 0s, 0s, 0s, .4s, .75s;
     
     animation-direction: alternate, alternate, alternate, alternate, alternate;
