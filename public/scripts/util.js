@@ -479,6 +479,8 @@ function getThumbnailAsDataUrl(file, width = undefined, height = undefined, qual
             if (file.type === "image/heif" || file.type === "image/heic") {
                 // browsers can't show heic files --> convert to jpeg before creating thumbnail
                 let blob = await fileToBlob(file);
+
+                //deleted the script (toooo large), let it crash in case
                 file = await heic2any({
                     blob,
                     toType: "image/jpeg",

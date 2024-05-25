@@ -17,7 +17,6 @@ class PairDrop {
             "scripts/qr-code.min.js",
             "scripts/zip.min.js",
             "scripts/no-sleep.min.js",
-            "scripts/heic2any.min.js"
         ];
 
         this.registerServiceWorker();

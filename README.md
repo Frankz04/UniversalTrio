@@ -33,7 +33,6 @@ Send a file from your phone to your laptop?
 * [zip.js](https://gildas-lormeau.github.io/zip.js/) library
 * [cyrb53](https://github.com/bryc/code/blob/master/jshash/experimental/cyrb53.js) super-fast hash function
 * [NoSleep](https://github.com/richtr/NoSleep.js) display sleep, add wake lock ([MIT](licenses/MIT-NoSleep))
-* [heic2any](https://github.com/alexcorvi/heic2any) HEIC/HEIF to PNG/GIF/JPEG ([MIT](licenses/MIT-heic2any))
 * [Weblate](https://weblate.org/) web-based localization tool
 
 [FAQ](docs/faq.md)
