@@ -16,7 +16,7 @@
     },
     "notifications": {
         "request-title": "يرغب {{name}} في نقل {{count}} {{descriptor}}",
-        "unfinished-transfers-warning": "هناك تحويلات غير مكتملة. هل أنت متأكد أنك تريد إغلاق PairDrop؟",
+        "unfinished-transfers-warning": "هناك تحويلات غير مكتملة. هل أنت متأكد أنك تريد إغلاق Trio؟",
         "message-received": "تم استلام الرابط بواسطة {{name}} - انقر للفتح",
         "rate-limit-join-key": "تم الوصول إلى الحد الأقصى. انتظر 10 ثوان وحاول مرة أخرى.",
         "connecting": "يتصل …",
@@ -57,15 +57,15 @@
     "header": {
         "cancel-share-mode": "تمّ",
         "theme-auto_title": "تغيير المظهر تلقائيا من النظام",
-        "install_title": "تثبيت PairDrop",
+        "install_title": "تثبيت Trio",
         "theme-dark_title": "إستخدم دائما المظهر المظلم",
         "pair-device_title": "قم بإقران أجهزتك بشكل دائم",
         "join-public-room_title": "انضم إلى الغرفة العامة مؤقتًا",
         "notification_title": "تفعيل الإشعارات",
         "edit-paired-devices_title": "تعديل الأجهزة المقترنة",
         "language-selector_title": "إختر اللغة",
-        "about_title": "حول PairDrop",
-        "about_aria-label": "افتح حول PairDrop",
+        "about_title": "حول Trio",
+        "about_aria-label": "افتح حول Trio",
         "theme-light_title": "إستخدم دائماً المظهر الفاتح",
         "edit-share-mode": "ت٧ارف"
     },
@@ -74,11 +74,11 @@
         "x-instructions-share-mode_desktop": "انقر للإرسال {{descriptor}}",
         "activate-share-mode-and-other-files-plural": "و{{count}} ملفات أخرى",
         "x-instructions-share-mode_mobile": "انقر للإرسال {{descriptor}}",
-        "activate-share-mode-base": "افتح PairDrop على الأجهزة الأخرى للإرسال",
+        "activate-share-mode-base": "افتح Trio على الأجهزة الأخرى للإرسال",
         "no-peers-subtitle": "قم بإقران الأجهزة أو ادخل إلى غرفة عامة لتتمكن من أن تكتشف على الشبكات الأخرى",
         "activate-share-mode-shared-text": "النص المشترك",
         "x-instructions_desktop": "انقر لإرسال الملفات أو انقر بزر الفأرة الأيمن لإرسال رسالة",
-        "no-peers-title": "افتح PairDrop على الأجهزة الأخرى لإرسال الملفات",
+        "no-peers-title": "افتح Trio على الأجهزة الأخرى لإرسال الملفات",
         "x-instructions_data-drop-bg": "حرر لتحديد المستلم",
         "no-peers_data-drop-bg": "حرر لتحديد المستلم",
         "x-instructions_data-drop-peer": "قم بالتحرير لإرسالها إلى القرين"
@@ -143,10 +143,10 @@
     },
     "about": {
         "claim": "أسهل طريقة لنقل الملفات عبر الأجهزة",
-        "tweet_title": "غرّد حول PairDrop",
-        "close-about_aria-label": "إغلاق حول PairDrop",
+        "tweet_title": "غرّد حول Trio",
+        "close-about_aria-label": "إغلاق حول Trio",
         "buy-me-a-coffee_title": "اشتري لي القهوة!",
-        "github_title": "PairDrop على جيت هاب",
+        "github_title": "Trio على جيت هاب",
         "faq_title": "أسئلة متكررة"
     },
     "document-titles": {

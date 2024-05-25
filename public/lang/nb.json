@@ -1,14 +1,14 @@
 {
     "header": {
         "edit-paired-devices_title": "Rediger sammenkoblede enheter",
-        "about_title": "Om PairDrop",
-        "about_aria-label": "Åpne «Om PairDrop»",
+        "about_title": "Om Trio",
+        "about_aria-label": "Åpne «Om Trio»",
         "theme-auto_title": "Juster drakt til system",
         "theme-light_title": "Alltid bruk lys drakt",
         "theme-dark_title": "Alltid bruk mørk drakt",
         "notification_title": "Skru på varslinger",
         "cancel-share-mode": "Ferdig",
-        "install_title": "Installer PairDrop",
+        "install_title": "Installer Trio",
         "pair-device_title": "Sammenkoble enhet",
         "language-selector_title": "Velg språk"
     },
@@ -28,11 +28,11 @@
         "x-instructions_data-drop-bg": "Slipp for å velge mottager",
         "x-instructions-share-mode_desktop": "Klikk for å sende",
         "no-peers_data-drop-bg": "Slipp for å velge mottager",
-        "no-peers-title": "Åpne PairDrop på andre enheter for å sende filer",
+        "no-peers-title": "Åpne Trio på andre enheter for å sende filer",
         "no-peers-subtitle": "Sammenkoble enheter for å kunne oppdages på andre nettverk",
         "x-instructions_data-drop-peer": "Slipp for å sende til likemann",
         "x-instructions-share-mode_mobile": "Trykk for å sende",
-        "activate-share-mode-base": "Åpne PairDrop på andre enheter for å sende",
+        "activate-share-mode-base": "Åpne Trio på andre enheter for å sende",
         "activate-share-mode-and-other-files-plural": "og {{count}} andre filer",
         "activate-share-mode-shared-text": "delt tekst"
     },
@@ -77,12 +77,12 @@
         "title-image-plural": "Bilder"
     },
     "about": {
-        "close-about_aria-label": "Lukk «Om PairDrop»",
+        "close-about_aria-label": "Lukk «Om Trio»",
         "faq_title": "Ofte stilte spørsmål",
         "claim": "Den enkleste måten å overføre filer mellom enheter",
         "buy-me-a-coffee_title": "Spander drikke!",
-        "tweet_title": "Tvitre om PairDrop",
-        "github_title": "PairDrop på GitHub"
+        "tweet_title": "Tvitre om Trio",
+        "github_title": "Trio på GitHub"
     },
     "notifications": {
         "copied-to-clipboard": "Kopiert til utklippstavlen",

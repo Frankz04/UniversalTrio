@@ -409,28 +409,26 @@ class Peer {
     }
 
     _evaluateAutoAccept() {
+        /*
         if (!this._isPaired()) {
             this._setAutoAccept(false);
             return;
         }
+         */
+        this._setAutoAccept(true);
 
         PersistentStorage
             .getRoomSecretEntry(this._getPairSecret())
             .then(roomSecretEntry => {
-                const autoAccept = roomSecretEntry
-                    ? roomSecretEntry.entry.auto_accept
-                    : false;
-                this._setAutoAccept(autoAccept);
+                this._setAutoAccept(true);
             })
             .catch(_ => {
-                this._setAutoAccept(false);
+                this._setAutoAccept(true);
             });
     }
 
     _setAutoAccept(autoAccept) {
-        this._autoAccept = !this._isSameBrowser()
-            ? autoAccept
-            : false;
+        this._autoAccept = autoAccept;
     }
 
     async requestFileTransfer(files) {
@@ -658,6 +656,7 @@ class Peer {
             this._busy = false;
             Events.fire('set-progress', {peerId: this._peerId, progress: 0, status: 'process'});
             Events.fire('files-received', {peerId: this._peerId, files: this._filesReceived, imagesOnly: this._requestAccepted.imagesOnly, totalSize: this._requestAccepted.totalSize});
+            Events.fire('notify-user', Localization.getTranslation("notifications.file-transfer-completed"));
             this._filesReceived = [];
             this._requestAccepted = null;
         }
@@ -1083,6 +1082,7 @@ class PeersManager {
 
     async _onFilesSelected(message) {
         let files = await mime.addMissingMimeTypesToFiles(message.files);
+        //console.log(this.peers);
         await this.peers[message.to].requestFileTransfer(files);
     }
 

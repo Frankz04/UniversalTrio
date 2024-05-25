@@ -27,7 +27,6 @@ class PairDrop {
         this.persistentStorage = new PersistentStorage();
         this.localization = new Localization();
         this.themeUI = new ThemeUI();
-        this.backgroundCanvas = new BackgroundCanvas();
         this.headerUI = new HeaderUI();
         this.centerUI = new CenterUI();
         this.footerUI = new FooterUI();
@@ -53,7 +52,6 @@ class PairDrop {
         await this.footerUI._evaluateFooterBadges();
         await this.footerUI.fadeIn();
         await this.centerUI.fadeIn();
-        await this.backgroundCanvas.fadeIn();
 
         // Load deferred assets
         console.log("Load deferred assets...");

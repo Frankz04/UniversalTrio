@@ -116,6 +116,7 @@ class HeaderUI {
     constructor() {
         this.$header = $$('header');
         this.$expandBtn = $('expand');
+        this.$logoBtn = $('header-logo-button');
         Events.on("resize", _ => this.evaluateOverflowing());
         this.$expandBtn.addEventListener('click', _ => this.onExpandBtnClick());
     }
@@ -131,6 +132,15 @@ class HeaderUI {
         this.$expandBtn.classList.add('flipped');
         this.$header.classList.remove('overflow-expanded');
 
+        if (window.outerWidth < 560) {
+            this.$logoBtn.setAttribute("src", "images/logo.svg");
+        }
+        if (window.outerWidth < 310) {
+            this.$logoBtn.setAttribute("hidden", true);
+        }
+        else {
+            this.$logoBtn.removeAttribute("hidden");
+        }
 
         const rtlLocale = Localization.currentLocaleIsRtl();
         let icon;

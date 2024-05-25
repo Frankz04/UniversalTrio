@@ -1,9 +1,9 @@
 {
     "header": {
-        "about_title": "Über PairDrop",
+        "about_title": "Über Trio",
         "notification_title": "Benachrichtigungen aktivieren",
-        "about_aria-label": "Über PairDrop öffnen",
-        "install_title": "PairDrop installieren",
+        "about_aria-label": "Über Trio öffnen",
+        "install_title": "Trio installieren",
         "pair-device_title": "Kopple deine Geräte dauerhaft",
         "edit-paired-devices_title": "Gekoppelte Geräte bearbeiten",
         "theme-auto_title": "Systemstil verwenden",
@@ -66,7 +66,7 @@
         "message_title": "Nachricht zum Senden hier einfügen",
         "pair-devices-qr-code_title": "Klicke, um Link zum Koppeln mit diesem Gerät zu kopieren",
         "public-room-qr-code_title": "Klicke, um Link zu diesem öffentlichen Raum zu kopieren",
-        "message_placeholder": "Text",
+        "message_placeholder": "Text eingeben",
         "close-toast_title": "Benachrichtigung schließen",
         "share-text-checkbox": "Diesen Dialog immer anzeigen, wenn Text geteilt wird",
         "base64-title-files": "Teile Dateien",
@@ -77,20 +77,21 @@
         "base64-title-text": "Teile Text"
     },
     "about": {
-        "tweet_title": "Über PairDrop twittern",
+        "tweet_title": "Über Trio twittern",
         "faq_title": "Häufig gestellte Fragen",
-        "close-about_aria-label": "Schließe Über PairDrop",
-        "github_title": "PairDrop auf GitHub",
+        "close-about_aria-label": "Schließe Über Trio",
+        "github_title": "Trio auf GitHub",
         "buy-me-a-coffee_title": "Kauf mir einen Kaffee!",
         "claim": "Der einfachste Weg, Dateien zwischen Geräten zu übertragen",
         "bluesky_title": "Folge uns auf BlueSky",
         "privacypolicy_title": "Öffne unsere Datenschutzerklärung",
-        "mastodon_title": "Schreibe über PairDrop auf Mastodon",
+        "mastodon_title": "Schreibe über Trio auf Mastodon",
         "custom_title": "Folge uns"
     },
     "footer": {
         "known-as": "Du wirst angezeigt als:",
         "display-name_title": "Ändere deinen Gerätenamen dauerhaft",
+        "display-name": "Dieses Gerät:",
         "on-this-network": "in diesem Netzwerk",
         "paired-devices": "für gekoppelte Geräte",
         "traffic": "Datenverkehr wird",
@@ -124,7 +125,7 @@
         "notifications-enabled": "Benachrichtigungen aktiviert",
         "offline": "Du bist offline",
         "online": "Du bist wieder Online",
-        "unfinished-transfers-warning": "Es wurden noch nicht alle Übertragungen fertiggestellt. Möchtest du PairDrop wirklich schließen?",
+        "unfinished-transfers-warning": "Es wurden noch nicht alle Übertragungen fertiggestellt. Möchtest du Trio wirklich schließen?",
         "display-name-changed-permanently": "Anzeigename wurde dauerhaft geändert",
         "download-successful": "{{descriptor}} heruntergeladen",
         "pairing-cleared": "Alle Geräte entkoppelt",
@@ -148,9 +149,23 @@
         "pair-url-copied-to-clipboard": "Link zum Koppeln mit diesem Gerät in Zwischenablage kopiert",
         "room-url-copied-to-clipboard": "Link zu diesem öffentlichen Raum in Zwischenablage kopiert"
     },
+    "landing": {
+        "heading-part1": "Übertrage deine",
+        "heading-part2": "Dateien",
+        "heading-part3": "zwischen",
+        "heading-part4": "all",
+        "heading-part5": "deinen Geräten.",
+        "subheading1": "Dazu musst du einfach Trio im Browser deines zweiten Gerätes öffnen und voilà! Aktiviere ",
+        "subheading2": "wenn die Geräte in verschiedenen Netzwerken sind.",
+        "subheading-connected": "Wähle hier Dateien aus, um sie ans andere Gerät zu senden. Die Dateien werden verschlüsselt und ohne Server übertragen.",
+        "tick1": "Ohne Anmeldung",
+        "tick2": "Ohne Kabel",
+        "tick3": "Ohne Kosten",
+        "visit-website": "Oder lade Trio herunter"
+    },
     "instructions": {
         "x-instructions_desktop": "Klicke, um Dateien zu senden oder benutze einen Rechtsklick, um eine Nachricht zu senden",
-        "no-peers-title": "Öffne PairDrop auf anderen Geräten, um Dateien zu senden",
+        "no-peers-title": "Öffne Trio auf dem 2. Gerät",
         "no-peers_data-drop-bg": "Hier ablegen, um Empfänger auszuwählen",
         "no-peers-subtitle": "Kopple Geräte oder betritt einen öffentlichen Raum, um in anderen Netzwerken sichtbar zu sein",
         "x-instructions-share-mode_desktop": "Klicke zum Senden von {{descriptor}}",
@@ -158,10 +173,10 @@
         "x-instructions_data-drop-peer": "Hier ablegen, um an Peer zu senden",
         "x-instructions_data-drop-bg": "Loslassen um Empfänger auszuwählen",
         "x-instructions_mobile": "Tippe, um Dateien zu senden oder tippe lange, um Nachrichten zu senden",
-        "activate-share-mode-base": "Öffne PairDrop auf anderen Geräten zum Senden von",
+        "activate-share-mode-base": "Öffne Trio auf anderen Geräten zum Senden von",
         "activate-share-mode-and-other-files-plural": "und {{count}} anderen Dateien",
         "activate-share-mode-shared-text": "freigegebenem Text",
-        "webrtc-requirement": "Um diese PairDrop Instanz zu verwenden muss WebRTC aktiviert sein!",
+        "webrtc-requirement": "Um diese Trio Instanz zu verwenden muss WebRTC aktiviert sein!",
         "activate-share-mode-shared-files-plural": "{{count}} geteilte Dateien",
         "activate-share-mode-shared-file": "geteilte Datei",
         "activate-share-mode-and-other-file": "und 1 andere Datei"
@@ -181,6 +196,12 @@
         "click-to-send-share-mode": "Klicken um {{descriptor}} zu senden",
         "transferring": "Übertragung läuft…",
         "processing": "Bearbeitung läuft…",
-        "preparing": "Vorbereitung läuft…"
+        "preparing": "Vorbereitung läuft…",
+        "section-title-device": "Verbundenes Gerät",
+        "section-title-files": "Dateien senden",
+        "section-title-text": "Text senden",
+        "select-files-label": "Dateien auswählen",
+        "drag-drop-description": "Drag and Drop",
+        "file-uploading-description": "Wird gesendet..."
     }
 }

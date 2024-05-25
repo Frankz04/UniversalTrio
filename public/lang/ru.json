@@ -2,7 +2,7 @@
     "header": {
         "about_aria-label": "Открыть страницу \"О сервисе\"",
         "pair-device_title": "Связать ваши устройства навсегда",
-        "install_title": "Установить PairDrop",
+        "install_title": "Установить Trio",
         "cancel-share-mode": "Выполнено",
         "edit-paired-devices_title": "Редактировать связанные устройства",
         "notification_title": "Включить уведомления",
@@ -22,10 +22,10 @@
         "x-instructions-share-mode_mobile": "Прикоснитесь, чтобы отправить {{descriptor}}",
         "x-instructions_data-drop-peer": "Отпустите, чтобы послать узлу",
         "x-instructions_mobile": "Прикоснитесь коротко, чтобы отправить файлы, или долго, чтобы отправить сообщение",
-        "no-peers-title": "Откройте PairDrop на других устройствах, чтобы отправить файлы",
+        "no-peers-title": "Откройте Trio на других устройствах, чтобы отправить файлы",
         "no-peers-subtitle": "Свяжите устройства или войдите в публичную комнату, чтобы вас могли обнаружить из других сетей",
         "activate-share-mode-and-other-files-plural": "и {{count}} других файлов",
-        "activate-share-mode-base": "Откройте PairDrop на других устройствах, чтобы отправить",
+        "activate-share-mode-base": "Откройте Trio на других устройствах, чтобы отправить",
         "activate-share-mode-shared-text": "общий текст"
     },
     "footer": {
@@ -100,8 +100,8 @@
         "claim": "Самый простой способ передачи файлов между устройствами",
         "close-about_aria-label": "Закрыть страницу \"О сервисе\"",
         "buy-me-a-coffee_title": "Купить мне кофе!",
-        "github_title": "PairDrop на GitHub",
-        "tweet_title": "Твит о PairDrop",
+        "github_title": "Trio на GitHub",
+        "tweet_title": "Твит о Trio",
         "faq_title": "Часто задаваемые вопросы"
     },
     "notifications": {
@@ -126,7 +126,7 @@
         "selected-peer-left": "Выбранный узел вышел",
         "request-title": "{{name}} хотел бы передать {{count}} {{descriptor}}",
         "rate-limit-join-key": "Достигнут предел скорости. Подождите 10 секунд и повторите попытку.",
-        "unfinished-transfers-warning": "Есть незавершенные передачи. Вы уверены, что хотите закрыть PairDrop?",
+        "unfinished-transfers-warning": "Есть незавершенные передачи. Вы уверены, что хотите закрыть Trio?",
         "copied-text-error": "Запись в буфер обмена не удалась. Скопируйте вручную!",
         "pairing-cleared": "Все устройства отвязаны",
         "pairing-key-invalid": "Неверный ключ",

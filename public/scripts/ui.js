@@ -3,7 +3,7 @@ class PeersUI {
     constructor() {
         this.$xPeers = $$('x-peers');
         this.$xNoPeers = $$('x-no-peers');
-        this.$xInstructions = $$('x-instructions');
+        //this.$xInstructions = $$('x-instructions');
         this.$wsFallbackWarning = $('websocket-fallback');
 
         this.$sharePanel = $$('.shr-panel');
@@ -17,6 +17,8 @@ class PeersUI {
         this.$shareModeEditBtn = $$('.shr-panel .edit-btn');
 
         this.peers = {};
+        this.connectedPeers = [];
+        this.transferUI= null;
 
         this.shareMode = {};
         this.shareMode.active = false;
@@ -39,7 +41,7 @@ class PeersUI {
         Events.on('resize', _ => this._evaluateOverflowingPeers());
         Events.on('header-changed', _ => this._evaluateOverflowingPeers());
 
-        Events.on('paste', e => this._onPaste(e));
+        //Events.on('paste', e => this._onPaste(e));
         Events.on('activate-share-mode', e => this._activateShareMode(e.detail.files, e.detail.text));
         Events.on('translation-loaded', _ => this._reloadShareMode());
         Events.on('room-type-removed', e => this._onRoomTypeRemoved(e.detail.peerId, e.detail.roomType));
@@ -113,11 +115,15 @@ class PeersUI {
         if (!this.peers[peerId] || $(peerId)) return;
 
         const peer = this.peers[peerId];
-
-        new PeerUI(peer, connectionHash, {
+        this.connectedPeers.push(peerId);
+        /*new PeerUI(peer, connectionHash, {
             active: this.shareMode.active,
             descriptor: this.shareMode.descriptor,
-        });
+        });*/
+
+        if (this.transferUI !== null) return;
+        this.transferUI = new TransferUI(this.peers[peerId]);
+        this.transferUI._peer
     }
 
     _redrawPeerRoomTypes(peerId) {
@@ -149,10 +155,37 @@ class PeersUI {
     }
 
     _onPeerDisconnected(peerId) {
+
         const $peer = $(peerId);
         if (!$peer) return;
         $peer.remove();
         this._evaluateOverflowingPeers();
+
+
+        let ind = this.connectedPeers.indexOf(peerId)
+        if (ind != -1) {
+            this.connectedPeers.splice(ind, 1);
+        }
+
+        if (this.connectedPeers.length == 0) {
+            this.transferUI.closeTransferUI();
+            this.transferUI = null;
+        }
+        else if (!this.connectedPeers.includes(this.transferUI.peerID)) {
+            console.log(this.connectedPeers);
+            this.transferUI.closeTransferUI();
+            this.transferUI = null;
+
+            //we cant trust the connectedPeers array for now
+            for (var i = 0; i < this.connectedPeers.length; i++) {
+                if (Object.keys(this.peers).includes(this.connectedPeers[i])) {
+                    this.transferUI = new TransferUI(this.peers[this.connectedPeers[i]]);
+                    break;
+                }
+            }
+
+            
+        }
     }
 
     _onRoomTypeRemoved(peerId, roomType) {
@@ -200,12 +233,12 @@ class PeersUI {
 
         e.preventDefault();
 
-        this.$xInstructions.setAttribute('drop-bg', true);
+        //this.$xInstructions.setAttribute('drop-bg', true);
         this.$xNoPeers.setAttribute('drop-bg', true);
     }
 
     _onDragEnd() {
-        this.$xInstructions.removeAttribute('drop-bg');
+        //this.$xInstructions.removeAttribute('drop-bg');
         this.$xNoPeers.removeAttribute('drop-bg');
     }
 
@@ -306,8 +339,8 @@ class PeersUI {
         const desktop = Localization.getTranslation("instructions.x-instructions-share-mode_desktop", null, {descriptor: descriptorInstructions});
         const mobile = Localization.getTranslation("instructions.x-instructions-share-mode_mobile", null, {descriptor: descriptorInstructions});
 
-        this.$xInstructions.setAttribute('desktop', desktop);
-        this.$xInstructions.setAttribute('mobile', mobile);
+        //this.$xInstructions.setAttribute('desktop', desktop);
+        //this.$xInstructions.setAttribute('mobile', mobile);
 
         this.$sharePanel.removeAttribute('hidden');
 
@@ -351,8 +384,8 @@ class PeersUI {
         const desktop = Localization.getTranslation("instructions.x-instructions_desktop");
         const mobile = Localization.getTranslation("instructions.x-instructions_mobile");
 
-        this.$xInstructions.setAttribute('desktop', desktop);
-        this.$xInstructions.setAttribute('mobile', mobile);
+        //this.$xInstructions.setAttribute('desktop', desktop);
+        //this.$xInstructions.setAttribute('mobile', mobile);
 
         this.$sharePanel.setAttribute('hidden', true);
 
@@ -401,7 +434,7 @@ class PeerUI {
     };
 
     constructor(peer, connectionHash, shareMode) {
-        this.$xInstructions = $$('x-instructions');
+        //this.$xInstructions = $$('x-instructions');
         this.$xPeers = $$('x-peers');
 
         this._peer = peer;
@@ -662,12 +695,12 @@ class PeerUI {
 
     _onDragOver() {
         this.$el.setAttribute('drop', true);
-        this.$xInstructions.setAttribute('drop-peer', true);
+        //this.$xInstructions.setAttribute('drop-peer', true);
     }
 
     _onDragEnd() {
         this.$el.removeAttribute('drop');
-        this.$xInstructions.removeAttribute('drop-peer');
+        //this.$xInstructions.removeAttribute('drop-peer');
     }
 
     _onRightClick(e) {
@@ -695,6 +728,342 @@ class PeerUI {
             });
         }
         this._touchTimer = null;
+    }
+}
+
+class TransferUI {
+    constructor(peer) {
+        //this.$xInstructions = $$('x-instructions');
+
+        this.$xPeers = $$('x-peers');
+        this._peer = peer;
+        this.peerID = peer.id;
+        this.progressVisible = false;
+
+        this._initDom();
+        this._changeLandingStates("connected");
+    }
+
+    _changeLandingStates(status) {
+        let notConnected = $("subheading-not-connected");
+        let connected = $("subheading-connected");
+        let displayName = $("display-name-div");
+
+        if (status == "connected") {
+            notConnected.setAttribute("hidden", true);
+            connected.removeAttribute("hidden");
+            displayName.removeAttribute("hidden");
+    
+        }
+        if (status == "disconnected") {
+            notConnected.removeAttribute("hidden");
+            connected.setAttribute("hidden", true);
+            displayName.setAttribute("hidden", true);
+        }
+    }
+
+    closeTransferUI() {
+        this.$el.remove();
+        this._changeLandingStates("disconnected")
+    }
+
+    html() {
+        let sectionTitle1 = Localization.getTranslation("peer-ui.section-title-device");
+        let sectionTitle2 = Localization.getTranslation("peer-ui.section-title-files");
+        let sectionTitle3 = Localization.getTranslation("peer-ui.section-title-text");
+        let dragdrop = Localization.getTranslation("peer-ui.drag-drop-description");
+        let selectfiles = Localization.getTranslation("peer-ui.select-files-label");
+        let inputTitle = Localization.getTranslation("dialogs.message_title");
+        let inputPlaceholder = Localization.getTranslation("dialogs.message_placeholder");
+        let uploadDesc = Localization.getTranslation("peer-ui.file-uploading-description");
+
+        this.$el.innerHTML = `
+            <x-peer-section>
+                <x-peer-section-title data-i18n-key="peer-ui.section-title-device" data-i18n-attrs="text">${sectionTitle1}</x-peer-section-title>
+                <div class="row">
+                <svg class="icon-small icon"><use xlink:href="#"/></svg>
+                    <div class="name"></div>
+                    </div>
+            </x-peer-section>
+            <x-peer-section>
+                <x-peer-section-title data-i18n-key="peer-ui.section-title-files" data-i18n-attrs="text">${sectionTitle2}</x-peer-section-title>
+                <x-peer-file-input>
+                    <x-peer-file-input-options>
+                    <img src="images/landing/file-upload.svg" class="icon"/>
+                    <div data-i18n-key="peer-ui.drag-drop-description" data-i18n-attrs="text" class="">${dragdrop}</div>
+                    <label data-i18n-key="peer-ui.select-files-label" data-i18n-attrs="text" class="">
+                        <input type="file" multiple/>${selectfiles}
+                    </label>
+                    </x-peer-file-input-options>
+                    <x-progress-window class="not-visible">
+                        <x-progress></x-progress>
+                        <h3 id="text-progress"></h3>
+                        <div data-i18n-key="peer-ui.file-uploading-description" data-i18n-attrs="text"  id="file-uploading-description">${uploadDesc}</div>
+                    </x-progress-window>
+                </x-peer-file-input>
+            </x-peer-section>
+            <x-peer-section>
+                <x-peer-section-title data-i18n-key="peer-ui.section-title-text" data-i18n-attrs="text">${sectionTitle3}</x-peer-section-title>
+                <x-peer-text-input>
+                    <textarea type="text" role="textbox" data-i18n-key="dialogs.message" title="${inputTitle}" placeholder="${inputPlaceholder}" data-i18n-attrs="title placeholder"></textarea>
+                    <div id="textarea-send" class="send">
+                    <img src="images/landing/paper-plane-top.svg"/>
+                    </div>
+                </x-peer-text-input>
+            </x-peer-section>
+            `;
+
+
+        this.$el.querySelector('svg use').setAttribute('xlink:href', this._icon());
+        //this.$el.querySelector('.name').textContent = this._displayName();
+        //this.$el.querySelector('.device-name').textContent = this._deviceName();
+
+        //this.$label = this.$el.querySelector('label');
+        //this.$input = this.$el.querySelector('input');
+
+        this.$xProgressWindow = this.$el.querySelector('x-progress-window');
+        this.$xProgress = this.$el.querySelector('x-progress');
+        this.$textProgress = this.$el.querySelector('#text-progress');
+        this.progressVisible = false;
+    }
+
+
+    _initDom() {
+        this.$el = document.createElement('x-peer');
+        this.$el.id = this._peer.id;
+        this.$el.ui = this;
+        this.$el.classList.add("column");
+
+        this.html();
+
+        this._createCallbacks();
+        this._bindListeners();
+
+        this.$xPeers.appendChild(this.$el);
+    }
+    
+    _createCallbacks() {
+        this._callbackInput = e => this._onFilesSelected(e);
+        this._callbackClickSleep = _ => NoSleepUI.enable();
+        this._callbackTouchStartSleep = _ => NoSleepUI.enable();
+        this._callbackDrop = e => this._onDrop(e);
+        this._callbackDragEnd = e => this._onDragEnd(e);
+        this._callbackDragLeave = e => this._onDragEnd(e);
+        this._callbackDragOver = e => this._onDragOver(e);
+        this._callbackPointerDown = e => this._onPointerDown(e);
+        this._callbackTextSend = e => this._onTextSend(e);
+        this._callbackKeyPressed = e => this._onKeyPress(e);
+    }
+
+    _bindListeners() {
+        if(!PeerUI._shareMode.active) {
+            // Remove Events Share mode
+            this.$el.removeEventListener('pointerdown', this._callbackPointerDown);
+
+            // Add Events Normal Mode
+            this.$el.querySelector('input').addEventListener('change', this._callbackInput);
+            this.$el.querySelector('#textarea-send').addEventListener('click', this._callbackTextSend);
+            this.$el.querySelector('textarea').addEventListener('keydown', this._callbackKeyPressed);
+            this.$el.addEventListener('click', this._callbackClickSleep);
+            this.$el.addEventListener('drop', this._callbackDrop);
+            this.$el.addEventListener('dragend', this._callbackDragEnd);
+            this.$el.addEventListener('dragleave', this._callbackDragLeave);
+            this.$el.addEventListener('dragover', this._callbackDragOver);
+        }
+        else {
+            // Remove Events Normal Mode
+            this.$el.removeEventListener('click', this._callbackClickSleep);
+            this.$el.removeEventListener('drop', this._callbackDrop);
+            this.$el.removeEventListener('dragend', this._callbackDragEnd);
+            this.$el.removeEventListener('dragleave', this._callbackDragLeave);
+            this.$el.removeEventListener('dragover', this._callbackDragOver);
+
+            // Add Events Share mode
+            this.$el.addEventListener('pointerdown', this._callbackPointerDown);
+        }
+    }   
+
+    _onPointerDown(e) {
+        // Prevents triggering of event twice on touch devices
+        e.stopPropagation();
+        e.preventDefault();
+        Events.fire('share-mode-pointerdown', {
+            peerId: this._peer.id
+        });
+    }
+    _onKeyPress(e) {
+        if (this.$el.querySelector('textarea').value == "") return;
+        if (this.progressVisible) return
+        if (e.isComposing || e.keyCode === 13) {
+            Events.fire('send-text', {
+                to: this._peer.id,
+                text: this.$el.querySelector('textarea').value
+            });
+            e.preventDefault();
+            this.$el.querySelector('textarea').value = "";
+        }
+    }
+
+    _onTextSend(e) {
+        if (this.$el.querySelector('textarea').value == "") return;
+        if (this.progressVisible) return
+        Events.fire('send-text', {
+            to: this._peer.id,
+            text: this.$el.querySelector('textarea').value
+        });
+    }
+
+    _displayName() {
+        return this._peer.name.displayName;
+    }
+
+    _deviceName() {
+        return this._peer.name.deviceName;
+    }
+
+    _badgeClassName() {
+        const roomTypes = Object.keys(this._peer._roomIds);
+        return roomTypes.includes('secret')
+            ? 'badge-room-secret'
+            : roomTypes.includes('ip')
+                ? 'badge-room-ip'
+                : 'badge-room-public-id';
+    }
+
+    _icon() {
+        const device = this._peer.name.device || this._peer.name;
+        if (device.type === 'mobile') {
+            return '#phone-iphone';
+        }
+        if (device.type === 'tablet') {
+            return '#tablet-mac';
+        }
+        return '#desktop-mac';
+    }
+
+    _onFilesSelected(e) {
+        const $input = e.target;
+        const files = $input.files;
+
+        if (files.length === 0) return;
+
+        Events.fire('files-selected', {
+            files: files,
+            to: this._peer.id
+        });
+        $input.files = null; // reset input
+    }
+
+    _resetProgress() {
+        this.progressVisible = false;
+        this.$xProgressWindow.className = "not-visible";
+
+        this.$xProgress.className = ""
+        this.$xProgress.style.setProperty('--progress', "100%");
+        this.$xProgress.style.setProperty('--progress-radius', "60%");
+        this.$textProgress.innerHTML = "0%";
+        this.$textProgress.style.setProperty("display", "block");
+        this.$el.querySelector("#file-uploading-description").style.setProperty("display", "block");
+
+    }
+
+    _animateProgressEnd() {
+        
+        this.$textProgress.style.setProperty("display", "none");
+        this.$el.querySelector("#file-uploading-description").style.setProperty("display", "none");
+        this.$el.querySelector('x-peer-file-input-options').className = "";
+        this.$xProgress.className = "animateEnd"
+
+        setTimeout(() => {
+            this._resetProgress();
+        }, 320);
+    }
+
+    setProgress(progress, status) {
+        if (status == "transfer") {
+            if (progress != 1) {
+                if (!this.progressVisible) {
+                    this.progressVisible = true;
+                    this.lastProgressUpdate = Date.now()-1000;
+                    this.$xProgressWindow.className = "";
+                    this.$el.querySelector('x-peer-file-input-options').className = "not-visible";
+                }
+            }
+            else {
+                setTimeout(() => {
+                    this._animateProgressEnd();
+                }, 350);
+                
+            }
+            //without setTimeout when upload small files, progress would normally be 1, but it was 0
+            //with console.log() everything worked without timeout, but without both it doesnt correctly update progress
+            setTimeout(() => {
+                this.lastProgressUpdate = Date.now();
+                this.$xProgress.style.setProperty('--progress', Math.round(100 - (progress*100)) + "%");
+                this.$xProgress.style.setProperty('--progress-radius', 0.4*this.calcProgressRadius(progress) + "%");    
+                this.$textProgress.innerHTML = Math.round(progress*100) + "%"
+            }, 12);
+        }
+    }
+
+    calcProgressRadius(progress) {
+        progress *= 100;
+        if (progress < 50) {
+            let min = 60;
+            let max = 120;
+            let end = 50;
+    
+            let m = (max-min) / (end-0);
+            let n = min;
+                
+            return Math.round((progress*m) + n);
+        }
+        if (progress < 75) {
+            return 120;
+        }
+        
+        let min = 23;
+        let max = 120;
+        let start = 75;
+
+        let m = (min-max) / (100-start);
+        let n = max - (m*start);
+        
+        return Math.round((progress*m) + n);
+    }
+
+    _onDrop(e) {
+        if (PeerUI._shareMode.active || Dialog.anyDialogShown()) return;
+
+        e.preventDefault();
+        this._onDragEnd();
+
+        const peerId = this._peer.id;
+        const files = e.dataTransfer.files;
+        const text = e.dataTransfer.getData("text");
+
+        if (files.length > 0) {
+            Events.fire('files-selected', {
+                files: files,
+                to: peerId
+            });
+        }
+        else if (text.length > 0) {
+            Events.fire('send-text', {
+                text: text,
+                to: peerId
+            });
+        }
+    }
+
+    _onDragOver() {
+        this.$el.setAttribute('drop', true);
+        //this.$xInstructions.setAttribute('drop-peer', true);
+    }
+
+    _onDragEnd() {
+        this.$el.removeAttribute('drop');
+        //this.$xInstructions.removeAttribute('drop-peer');
     }
 }
 
@@ -738,7 +1107,7 @@ class Dialog {
             document.activeElement.blur();
             window.blur();
         }
-        document.title = 'PairDrop | Transfer Files Cross-Platform. No Setup, No Signup.';
+        document.title = 'Trio | Dateien im Handumdrehen übertragen. Für alle Geräte.';
         changeFavicon("images/favicon-96x96.png");
         this.correspondingPeerId = undefined;
     }
@@ -902,7 +1271,7 @@ class ReceiveFileDialog extends ReceiveDialog {
             badgeClassName: badgeClassName
         });
 
-        window.blop.play();
+        //window.blop.play();
 
         await this._nextFiles();
     }
@@ -1013,6 +1382,17 @@ class ReceiveFileDialog extends ReceiveDialog {
             }
         }
 
+        if (downloadZipped) {
+            let tmpZipBtn = document.createElement("a");
+            tmpZipBtn.download = filenameDownload;
+            tmpZipBtn.href = url;
+            tmpZipBtn.click();
+        }
+        else {
+            this._downloadFilesIndividually(files);
+        }
+        this._busy = false;
+        return;
         this.$downloadBtn.removeAttribute('disabled');
         this.$downloadBtn.innerText = Localization.getTranslation("dialogs.download");
         this.$downloadBtn.onclick = _ => {
@@ -1043,7 +1423,7 @@ class ReceiveFileDialog extends ReceiveDialog {
 
         Events.fire('set-progress', {peerId: peerId, progress: 1, status: 'process'})
         this.show();
-
+        /*
         setTimeout(() => {
             // wait for the dialog to be shown
             if (canShare) {
@@ -1052,9 +1432,9 @@ class ReceiveFileDialog extends ReceiveDialog {
             else {
                 this.$downloadBtn.click();
             }
-        }, 500);
+        }, 500); */
 
-        this.createPreviewElement(files[0])
+        /*this.createPreviewElement(files[0])
             .then(canPreview => {
                 if (canPreview) {
                     console.log('the file is able to preview');
@@ -1063,7 +1443,7 @@ class ReceiveFileDialog extends ReceiveDialog {
                     console.log('the file is not able to preview');
                 }
             })
-            .catch(r => console.error(r));
+            .catch(r => console.error(r)); */
     }
 
     _downloadFilesIndividually(files) {
@@ -1676,6 +2056,7 @@ class PublicRoomDialog extends Dialog {
         this.$leaveBtn = this.$el.querySelector('.leave-room');
         this.$joinSubmitBtn = this.$el.querySelector('button[type="submit"]');
         this.$headerBtnJoinPublicRoom = $('join-public-room');
+        this.$headerBtnJoinPublicRoom2 = $('join-public-room2');
         this.$footerBadgePublicRoomDevices = $$('.discovery-wrapper .badge-room-public-id');
 
 
@@ -1684,6 +2065,7 @@ class PublicRoomDialog extends Dialog {
         this.$leaveBtn.addEventListener('click', _ => this._leavePublicRoom())
 
         this.$headerBtnJoinPublicRoom.addEventListener('click', _ => this._onHeaderBtnClick());
+        this.$headerBtnJoinPublicRoom2.addEventListener('click', _ => this._onHeaderBtnClick());
         this.$footerBadgePublicRoomDevices.addEventListener('click', _ => this._onHeaderBtnClick());
 
         this.inputKeyContainer = new InputKeyContainer(
