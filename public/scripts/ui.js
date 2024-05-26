@@ -123,7 +123,21 @@ class PeersUI {
 
         if (this.transferUI !== null) return;
         this.transferUI = new TransferUI(this.peers[peerId]);
-        this.transferUI._peer
+        this._onDisplayNameClickedCallback = e => this._changeConnectedDevice(e);
+        this.$xPeers.querySelector('.name').addEventListener('click', this._onDisplayNameClickedCallback);
+    }
+
+    _changeConnectedDevice(e) {
+        //we cant trust the connectedPeers array for now
+        if (this.connectedPeers.length == 1) return;
+        let ind = this.connectedPeers.indexOf(this.transferUI.getPeerID());
+        if (ind == this.connectedPeers.length-1) {
+            ind = 0;
+        }
+        else {
+            ind++;
+        }
+        this.transferUI.setNewPeer(this.peers[this.connectedPeers[ind]]);
     }
 
     _redrawPeerRoomTypes(peerId) {
@@ -744,6 +758,21 @@ class TransferUI {
         this._changeLandingStates("connected");
     }
 
+    getPeerID() {
+        return this.peerID;
+    }
+
+    setNewPeer(peer) {
+        if (this.progressVisible) {
+            return false;
+        }
+        this._peer = peer;
+        this.peerID = peer.id;
+        this.$el.querySelector('.name').textContent = this._displayName();
+
+        return true;
+    }
+
     _changeLandingStates(status) {
         let notConnected = $("subheading-not-connected");
         let connected = $("subheading-connected");
@@ -815,7 +844,7 @@ class TransferUI {
 
 
         this.$el.querySelector('svg use').setAttribute('xlink:href', this._icon());
-        //this.$el.querySelector('.name').textContent = this._displayName();
+        this.$el.querySelector('.name').textContent = this._displayName();
         //this.$el.querySelector('.device-name').textContent = this._deviceName();
 
         //this.$label = this.$el.querySelector('label');
@@ -882,6 +911,10 @@ class TransferUI {
             this.$el.addEventListener('pointerdown', this._callbackPointerDown);
         }
     }   
+
+    _changeConnectedDevice(e) {
+        
+    }
 
     _onPointerDown(e) {
         // Prevents triggering of event twice on touch devices
@@ -1375,7 +1408,7 @@ class ReceiveFileDialog extends ReceiveDialog {
                 hours = hours.length < 2 ? "0" + hours : hours;
                 let minutes = now.getMinutes().toString();
                 minutes = minutes.length < 2 ? "0" + minutes : minutes;
-                filenameDownload = `PairDrop_files_${year+month+date}_${hours+minutes}.zip`;
+                filenameDownload = `Transferred_files_${year+month+date}_${hours+minutes}.zip`;
             } catch (e) {
                 console.error(e);
                 downloadZipped = false;
@@ -1524,7 +1557,7 @@ class ReceiveRequestDialog extends ReceiveDialog {
 
         this.$receiveTitle.innerText = transferRequestTitle;
 
-        document.title =  `${transferRequestTitle} - PairDrop`;
+        document.title =  `${transferRequestTitle} - Trio`;
         changeFavicon("images/favicon-96x96-notification.png");
 
         this.$acceptRequestBtn.removeAttribute('disabled');
@@ -2504,8 +2537,8 @@ class ReceiveTextDialog extends Dialog {
 
     _setDocumentTitleMessages() {
         document.title = this._receiveTextQueue.length <= 1
-            ? `${ Localization.getTranslation("document-titles.message-received") } - PairDrop`
-            : `${ Localization.getTranslation("document-titles.message-received-plural", null, {count: this._receiveTextQueue.length + 1}) } - PairDrop`;
+            ? `${ Localization.getTranslation("document-titles.message-received") } - Trio`
+            : `${ Localization.getTranslation("document-titles.message-received-plural", null, {count: this._receiveTextQueue.length + 1}) } - Trio`;
     }
 
     async _onCopy() {
