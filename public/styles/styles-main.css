@@ -418,7 +418,7 @@ x-transfer-window {
     border-radius: 1.8em;
     box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.05);
     width: 21em;
-    height: 25em;
+    height: 25.5em;
     display: flex;
     flex-shrink: 0;
     margin-left: 1em;
@@ -544,10 +544,10 @@ x-peer-name #display-name {
 @media only screen and (max-width: 650px) {
     x-heading h3 {
         line-height: normal;
-        font-size: .84em;
+        font-size: .95em;
     }
     x-heading h1 {
-        font-size: 1.2em;
+        font-size: 1.8em;
     }
     x-heading .vertical-align-sub {
         vertical-align: text-bottom;
@@ -568,6 +568,7 @@ x-peer-name #display-name {
         text-align: center;
         margin: 0;
         padding: 5%;
+        margin-top: -3em;
         align-items: center;
     }
     #center {
@@ -590,7 +591,30 @@ x-peer-name #display-name {
         display: none;
     }
     x-heading .magic-underline::after {
-        bottom: -16px !important;
+        bottom: -14px !important;
+    }
+    x-peer-file-input-options .icon {
+        height: 4vh !important;
+    }
+}
+@media only screen and (max-height: 650px) {
+    x-heading h3 {
+        line-height: normal;
+        font-size: .85em;
+    }
+    x-heading h1 {
+        font-size: 1.2em;
+    }
+}
+@media only screen and (max-height: 590px) {
+    x-heading h3 {
+        display: none;
+    }
+    x-heading h1 {
+        font-size: 1.3em;
+    }
+    x-heading {
+        margin-top: 0;
     }
 }
 @media only screen and (max-width: 1150px) {
@@ -608,9 +632,6 @@ x-peer-name #display-name {
 }
 @media only screen and (max-width: 350px) {
 
-    x-peer-file-input-options .icon {
-        width: 28px !important;
-    }
     x-peer-file-input-options  {
         gap: 0px !important;
     }

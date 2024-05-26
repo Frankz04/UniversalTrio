@@ -493,13 +493,13 @@ class Peer {
             mime: file.type
         });
         this._chunker = new FileChunker(file,
-            chunk => this._send(chunk),
-            offset => this._onPartitionEnd(offset));
-        this._chunker.nextPartition();
+            chunk => this._send(chunk));
+        this._chunker.readChunk();
     }
 
     _onPartitionEnd(offset) {
-        this.sendJSON({ type: 'partition', offset: offset });
+        //this.sendJSON({ type: 'partition', offset: offset });
+        this._sendNextPartition()
     }
 
     _onReceivedPartitionEnd(offset) {
@@ -766,7 +766,7 @@ class RTCPeer extends Peer {
     }
 
     _onDescription(description) {
-        // description.sdp = description.sdp.replace('b=AS:30', 'b=AS:1638400');
+        description.sdp = description.sdp.replace('b=AS:30', 'b=AS:1638400');
         this._conn
             .setLocalDescription(description)
             .then(_ => this._sendSignal({ sdp: description }))
@@ -1233,48 +1233,25 @@ class PeersManager {
 }
 
 class FileChunker {
-
-    constructor(file, onChunk, onPartitionEnd) {
+    constructor(file, onChunk) {
         this._chunkSize = 64000; // 64 KB
-        this._maxPartitionSize = 1e6; // 1 MB
         this._offset = 0;
-        this._partitionSize = 0;
         this._file = file;
         this._onChunk = onChunk;
-        this._onPartitionEnd = onPartitionEnd;
         this._reader = new FileReader();
         this._reader.addEventListener('load', e => this._onChunkRead(e.target.result));
     }
 
-    nextPartition() {
-        this._partitionSize = 0;
-        this._readChunk();
-    }
-
-    _readChunk() {
+    readChunk() {
         const chunk = this._file.slice(this._offset, this._offset + this._chunkSize);
         this._reader.readAsArrayBuffer(chunk);
     }
 
     _onChunkRead(chunk) {
         this._offset += chunk.byteLength;
-        this._partitionSize += chunk.byteLength;
         this._onChunk(chunk);
         if (this.isFileEnd()) return;
-        if (this._isPartitionEnd()) {
-            this._onPartitionEnd(this._offset);
-            return;
-        }
-        this._readChunk();
-    }
-
-    repeatPartition() {
-        this._offset -= this._partitionSize;
-        this.nextPartition();
-    }
-
-    _isPartitionEnd() {
-        return this._partitionSize >= this._maxPartitionSize;
+        this.readChunk();
     }
 
     isFileEnd() {
