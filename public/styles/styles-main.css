@@ -7,6 +7,7 @@ body {
     margin: 0;
     display: flex;
     flex-direction: column;
+    background-color: #EEFFE1;
     width: 100vw;
     /* Only allow selection on message and pair key */
     transition: color 300ms;
