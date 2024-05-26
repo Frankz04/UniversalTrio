@@ -159,15 +159,15 @@
         "subheading2": "wenn die Geräte in verschiedenen Netzwerken sind.",
         "subheading-connected": "Wähle hier Dateien aus, um sie ans andere Gerät zu senden. Die Dateien werden verschlüsselt und ohne Server übertragen.",
         "tick1": "Ohne Anmeldung",
-        "tick2": "Ohne Kabel",
-        "tick3": "Ohne Kosten",
+        "tick2": "Kabellos",
+        "tick3": "Verschlüsselt",
         "visit-website": "Oder lade Trio herunter"
     },
     "instructions": {
         "x-instructions_desktop": "Klicke, um Dateien zu senden oder benutze einen Rechtsklick, um eine Nachricht zu senden",
         "no-peers-title": "Öffne Trio auf dem 2. Gerät",
         "no-peers_data-drop-bg": "Hier ablegen, um Empfänger auszuwählen",
-        "no-peers-subtitle": "Kopple Geräte oder betritt einen öffentlichen Raum, um in anderen Netzwerken sichtbar zu sein",
+        "no-peers-subtitle": "Geräte in unterschiedlichen Netzwerken? Betritt einen öffentlichen Raum.",
         "x-instructions-share-mode_desktop": "Klicke zum Senden von {{descriptor}}",
         "x-instructions-share-mode_mobile": "Tippe zum Senden von {{descriptor}}",
         "x-instructions_data-drop-peer": "Hier ablegen, um an Peer zu senden",
