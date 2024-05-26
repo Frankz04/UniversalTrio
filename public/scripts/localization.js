@@ -7,7 +7,7 @@ class Localization {
         Localization.supportedLocalesRtl = ["ar"];
 
         Localization.translations = {};
-        Localization.translationsDefaultLocale = {};
+        Localization.defaultTranslations = {};
 
         Localization.systemLocale = Localization.getSupportedOrDefaultLocales(navigator.languages);
 
@@ -132,7 +132,7 @@ class Localization {
         let translation;
         try {
             const keys = key.split(".");
-
+            console.log(keys, translationObj)
             for (let i = 0; i < keys.length - 1; i++) {
                 // iterate into translation object until last layer
                 translationObj = translationObj[keys[i]]
@@ -168,7 +168,7 @@ class Localization {
 
     static getTranslation(key, attr = null, data = {}, useDefault = false) {
         let translationObj = useDefault
-            ? Localization.translationsDefaultLocale
+            ? Localization.defaultTranslations
             : Localization.translations;
 
         let translation;
@@ -196,7 +196,6 @@ class Localization {
                 translation = this.getTranslation(key, attr, data, true);
             }
         }
-
         return Localization.escapeHTML(translation);
     }
 
@@ -209,7 +208,7 @@ class Localization {
     }
 
     static logHelpCall() {
-        console.log("Help translating PairDrop: https://hosted.weblate.org/engage/pairdrop/");
+        //console.log("Help translating PairDrop: https://hosted.weblate.org/engage/pairdrop/");
     }
 
     static logHelpCallKey(key, attr) {
@@ -219,7 +218,7 @@ class Localization {
             ? key
             : `${key}_${attr}`;
 
-        console.warn(`Translate this string here: https://hosted.weblate.org/browse/pairdrop/pairdrop-spa/${locale}/?q=${keyComplete}`);
+        //console.warn(`Translate this string here: https://hosted.weblate.org/browse/pairdrop/pairdrop-spa/${locale}/?q=${keyComplete}`);
     }
 
     static escapeHTML(unsafeText) {
