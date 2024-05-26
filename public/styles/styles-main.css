@@ -7,7 +7,6 @@ body {
     margin: 0;
     display: flex;
     flex-direction: column;
-    background-color: #EEFFE1;
     width: 100vw;
     /* Only allow selection on message and pair key */
     transition: color 300ms;
@@ -1400,7 +1399,7 @@ body.dark-theme {
 /* Colored Elements */
 body {
     color: rgb(var(--text-color));
-    background-color: rgb(var(--bg-color));
+    background-color: #EEFFE1;
     transition: background-color 0.5s ease;
 }
 
