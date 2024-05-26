@@ -606,7 +606,16 @@ x-peer-name #display-name {
         font-size: 1.2em;
     }
 }
-@media only screen and (max-height: 590px) {
+@media only screen and (max-height: 725px) {
+    x-heading h3 {
+        line-height: normal;
+        font-size: .85em;
+    }
+    x-heading h1 {
+        font-size: 1.4em;
+    }
+}
+@media only screen and (max-height: 620px) {
     x-heading h3 {
         display: none;
     }
