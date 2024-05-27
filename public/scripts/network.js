@@ -121,6 +121,7 @@ class ServerConnection {
             return;
         }
         this.send({ type: 'join-public-room', publicRoomId: roomId, createIfInvalid: createIfInvalid });
+        fathom.trackEvent('join-public-room');
     }
 
     _onLeavePublicRoom() {
@@ -664,6 +665,7 @@ class Peer {
 
     _onFileTransferCompleted() {
         this._chunker = null;
+        fathom.trackEvent('file-transfer');
         if (!this._filesQueue.length) {
             this._busy = false;
             Events.fire('notify-user', Localization.getTranslation("notifications.file-transfer-completed"));
@@ -689,6 +691,7 @@ class Peer {
     }
 
     _onMessageTransferCompleted() {
+        fathom.trackEvent('message-transfer');
         Events.fire('notify-user', Localization.getTranslation("notifications.message-transfer-completed"));
     }
 

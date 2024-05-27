@@ -2,6 +2,7 @@
 <html lang="de">
 
 <head>
+    <script src="https://cdn.usefathom.com/script.js" data-site="SWWIXGEV" defer></script>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <!-- Web App Config -->
@@ -41,7 +42,7 @@
     <x-landing-page ondragstart="return false;">
         <header class="row-reverse wrap opacity-0">
         
-            <a href="#about" class="icon-button" data-i18n-key="header.about" data-i18n-attrs="title aria-label">
+            <a href="#about" onclick="fathom.trackEvent('open-about');" class="icon-button" data-i18n-key="header.about" data-i18n-attrs="title aria-label">
                 <svg class="icon">
                     <use xlink:href="#info-outline"></use>
                 </svg>
@@ -215,7 +216,7 @@
                 </div>
             </div>
         </footer>
-        <a href="https://app.einfachtrio.de" class="row visit-website">
+        <a href="https://app.einfachtrio.de" onclick="fathom.trackEvent('visit-download-website');" class="row visit-website">
             <h3 data-i18n-key="landing.visit-website" data-i18n-attrs="text"></h3>
         </a>
         <x-landing-background>

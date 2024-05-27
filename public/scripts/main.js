@@ -82,6 +82,7 @@ class PairDrop {
             // only display install btn when not installed
             this.$headerInstallBtn.removeAttribute('hidden');
             this.$headerInstallBtn.addEventListener('click', () => {
+                fathom.trackEvent('pwa-install');
                 this.$headerInstallBtn.setAttribute('hidden', true);
                 e.prompt();
             });
