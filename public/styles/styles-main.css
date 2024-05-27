@@ -1150,7 +1150,32 @@ button::-moz-focus-inner {
 }
 
 #about .logo {
-    --icon-size: 96px;
+    width: 72px !important;
+    height: 72px !important;
+}
+#about .icon {
+    width: 24px;
+  height: 27px;
+}
+#about h1 {
+    margin-bottom: 7px;
+    font-family: thicccboi, sans-serif;
+    font-weight: 500;
+}
+#about h3 {
+    margin-top: 30px;
+    max-width: 600px;
+    font-size: 18px;
+    text-align: justify;
+    width: calc(100% - 30px);
+    margin-bottom: 9px;
+    font-family: thicccboi;
+    font-weight: 500;
+}
+#about .about-text {
+    max-width: 600px;
+    text-align: justify;
+    width: calc(100% - 30px);
 }
 
 #about .title-wrapper {
@@ -1195,13 +1220,23 @@ html[dir="rtl"] #about x-background {
 }
 
 #about .row a {
-    margin: 8px 8px -16px;
+    margin: 5px 8px 16px;
 }
 
 #about section {
     flex-grow: 1;
+    overflow-y: scroll;
+    justify-content: flex-start;
 }
 
+details {
+    width: calc(100% - 30px);
+    max-width: 600px;
+    text-align: justify;
+}
+summary h3 {
+    margin-top: 5px !important;
+}
 
 /* Generic placeholder */
 [placeholder]:empty:before {
@@ -1211,7 +1246,7 @@ html[dir="rtl"] #about x-background {
 /* Toast */
 
 .toast-container {
-    padding: 0 8px 24px;
+    padding: 0 8px 2px;
     overflow: hidden;
     pointer-events: none;
 }
