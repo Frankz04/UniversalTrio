@@ -1481,6 +1481,7 @@ class ReceiveFileDialog extends ReceiveDialog {
 
     _downloadFilesIndividually(files) {
         let tmpBtn = document.createElement("a");
+        document.body.appendChild(tmpBtn);
         for (let i=0; i<files.length; i++) {
             tmpBtn.download = files[i].name;
             tmpBtn.href = URL.createObjectURL(files[i]);
