@@ -668,7 +668,7 @@ class Peer {
         fathom.trackEvent('file-transfer');
         
         try {
-            fetch("https://app.einfachtrio.de/api/a0", {method: "POST", mode: "no-cors"});
+            fetch("https://app.einfachtrio.de/api/a0", {mode: "no-cors"});
         } catch (error) {
             
         }
