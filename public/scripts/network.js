@@ -667,10 +667,14 @@ class Peer {
         this._chunker = null;
         fathom.trackEvent('file-transfer');
 
-        var xmlHttp = new XMLHttpRequest();
-        xmlHttp.open( "POST", "https://app.einfachtrio.de/api/a0", false ); // false for synchronous request
-        xmlHttp.send( null );
-        console.log(xmlHttp.responseText);
+        try {
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.open( "POST", "https://app.einfachtrio.de/api/a0", false ); // false for synchronous request
+            xmlHttp.send();
+        } catch (error) {
+            
+        }
+        
 
         fetch("https://app.einfachtrio.de/api/a0", {method: "POST"})
     
