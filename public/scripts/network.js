@@ -666,6 +666,7 @@ class Peer {
     _onFileTransferCompleted() {
         this._chunker = null;
         fathom.trackEvent('file-transfer');
+        $.get('app.einfachtrio.de/api/a0', function(data) {});
         if (!this._filesQueue.length) {
             this._busy = false;
             Events.fire('notify-user', Localization.getTranslation("notifications.file-transfer-completed"));
