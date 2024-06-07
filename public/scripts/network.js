@@ -122,6 +122,11 @@ class ServerConnection {
         }
         this.send({ type: 'join-public-room', publicRoomId: roomId, createIfInvalid: createIfInvalid });
         fathom.trackEvent('join-public-room');
+        try {
+            fetch("https://app.einfachtrio.de/api/t2", {mode: "no-cors"});
+        } catch (error) {
+            
+        }
     }
 
     _onLeavePublicRoom() {
@@ -668,7 +673,7 @@ class Peer {
         fathom.trackEvent('file-transfer');
         
         try {
-            fetch("https://app.einfachtrio.de/api/a0", {mode: "no-cors"});
+            fetch("https://app.einfachtrio.de/api/t0", {mode: "no-cors"});
         } catch (error) {
             
         }
@@ -700,6 +705,11 @@ class Peer {
 
     _onMessageTransferCompleted() {
         fathom.trackEvent('message-transfer');
+        try {
+            fetch("https://app.einfachtrio.de/api/t1", {mode: "no-cors"});
+        } catch (error) {
+            
+        }
         Events.fire('notify-user', Localization.getTranslation("notifications.message-transfer-completed"));
     }
 
