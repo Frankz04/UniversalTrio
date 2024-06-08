@@ -21,7 +21,7 @@ class PairDrop {
 
         this.registerServiceWorker();
 
-        Events.on('beforeinstallprompt', e => this.onPwaInstallable(e));
+        //Events.on('beforeinstallprompt', e => this.onPwaInstallable(e));
 
         this.persistentStorage = new PersistentStorage();
         this.localization = new Localization();
@@ -64,6 +64,11 @@ class PairDrop {
         // Evaluate url params as soon as ws is connected
         console.log("Evaluate URL params as soon as websocket connection is established.");
         Events.on('ws-connected', _ => this.evaluateUrlParams(), {once: true});
+
+        this.$headerInstallBtn.addEventListener('click', () => {
+            this.$headerInstallBtn.setAttribute('hidden', true);
+            window.location.href = "https://app.einfachtrio.de"
+        });
     }
 
     registerServiceWorker() {
@@ -75,19 +80,6 @@ class PairDrop {
                     window.serviceWorker = serviceWorker
                 });
         }
-    }
-
-    onPwaInstallable(e) {
-        if (!window.matchMedia('(display-mode: minimal-ui)').matches) {
-            // only display install btn when not installed
-            this.$headerInstallBtn.removeAttribute('hidden');
-            this.$headerInstallBtn.addEventListener('click', () => {
-                fathom.trackEvent('pwa-install');
-                this.$headerInstallBtn.setAttribute('hidden', true);
-                e.prompt();
-            });
-        }
-        return e.preventDefault();
     }
 
     async evaluatePermissionsAndRoomSecrets() {
