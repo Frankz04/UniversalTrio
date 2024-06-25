@@ -175,7 +175,7 @@
         "no-peers-title": "Öffne Trio auf dem 2. Gerät",
         "no-peers_data-drop-bg": "Hier ablegen, um Empfänger auszuwählen",
         "no-peers-subtitle-1": "Gehe im Browser deines zweiten Gerätes auf",
-        "no-peers-subtitle-2": "einfachtrio.de.",
+        "no-peers-subtitle-2": "einfachtrio.de",
         "x-instructions-share-mode_desktop": "Klicke zum Senden von {{descriptor}}",
         "x-instructions-share-mode_mobile": "Tippe zum Senden von {{descriptor}}",
         "x-instructions_data-drop-peer": "Hier ablegen, um an Peer zu senden",
