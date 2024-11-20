@@ -3,7 +3,7 @@
   # _Send it_, with Trio
 
   <p>
-    Local file sharing <a href="https://einfachtrio.de"><strong>in your web browser</strong></a>. 
+    Local file sharing <strong>in your web browser</strong>. 
     <br />
   </p>
 </div>
