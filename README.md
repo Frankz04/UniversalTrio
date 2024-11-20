@@ -1,6 +1,6 @@
 <div align="center">
 
-  # _Send it_, with [Trio](https://einfachtrio.de)
+  # _Send it_, with Trio
 
   <p>
     Local file sharing <a href="https://einfachtrio.de"><strong>in your web browser</strong></a>. 
